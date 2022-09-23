@@ -48,7 +48,7 @@ parse_mtp3_routing_label(LabelBin) when is_binary(LabelBin) ->
     {ok, #mtp3_routing_label{sig_link_sel = Sls, origin_pc = Opc, dest_pc = Dpc}, Remain}.
 
 parse_mtp3_msg(DataBin) when is_binary(DataBin) ->
-    <<NetInd:2, 0:2, SI:4, Remain/binary>> = DataBin,
+    <<NetInd:2, _:2, SI:4, Remain/binary>> = DataBin,
     ServiceInd = parse_mtp3_service_indicator(SI),
     {ok, RoutLbl, Payload} = parse_mtp3_routing_label(Remain),
     PayloadDec = decode_payload(ServiceInd, Payload),
